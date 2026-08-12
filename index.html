@@ -594,12 +594,17 @@
   }
   .sc-grid {
     display: grid;
-    grid-template-columns: 1fr auto 1fr auto 1fr;
-    gap: 10px;
-    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-items: stretch;
   }
   .sc-step {
     display: flex; gap: 10px; align-items: flex-start;
+    background: var(--bg-page);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--zx-red);
+    border-radius: 8px;
+    padding: 12px 14px;
   }
   .sc-step-num {
     width: 24px; height: 24px; border-radius: 50%;
@@ -609,19 +614,15 @@
     font-weight: 800; font-size: 12px; flex-shrink: 0;
   }
   .sc-step-body { flex: 1; min-width: 0; }
-  .sc-step-title { font-size: 13px; font-weight: 800; color: var(--text-primary); margin-bottom: 4px; }
-  .sc-step-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.6; }
+  .sc-step-title { font-size: 13px; font-weight: 800; color: var(--text-primary); margin-bottom: 5px; }
+  .sc-step-desc { font-size: 11.5px; color: var(--text-secondary); line-height: 1.65; }
   .sc-step-desc strong { color: var(--zx-red); }
-  .sc-arrow {
-    font-size: 18px; font-weight: 800; color: var(--text-muted);
-    text-align: center;
-  }
+  .sc-arrow { display: none; }
 
   @media (max-width: 768px) {
     .priority-banner { flex-direction: column; }
     .pb-arrow { transform: rotate(90deg); }
     .sc-grid { grid-template-columns: 1fr; }
-    .sc-arrow { transform: rotate(90deg); }
   }
 
   /* ====== 三栏对照：诉求 × 解法 × 难点 ====== */
@@ -833,6 +834,44 @@
   .v-step-body { flex: 1; min-width: 0; }
   .v-step-title { font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
   .v-step-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* 商户获益标注：让商户在流程里看见自己拿到什么 */
+  .v-gain {
+    display: block;
+    margin-top: 6px;
+    padding: 5px 8px 5px 22px;
+    position: relative;
+    background: linear-gradient(135deg, #F1F9F2, #E8F5E9);
+    border-left: 3px solid var(--accent-green);
+    border-radius: 5px;
+    font-size: 10.5px;
+    line-height: 1.5;
+    color: #1B5E20;
+  }
+  .v-gain::before {
+    content: '🏪';
+    position: absolute;
+    left: 6px; top: 5px;
+    font-size: 11px;
+  }
+  .v-gain strong { color: #1B5E20; font-weight: 800; }
+  .v-gain .vg-tag {
+    display: inline-block;
+    font-size: 9px; font-weight: 800;
+    color: #fff; background: var(--accent-green);
+    padding: 1px 5px; border-radius: 3px;
+    margin-right: 4px;
+    vertical-align: 1px;
+  }
+  /* 平台承担成本的标注 */
+  .v-gain.platform {
+    background: linear-gradient(135deg, #F3F0FF, #EDE7F6);
+    border-left-color: var(--accent-purple);
+    color: #4527A0;
+  }
+  .v-gain.platform::before { content: '💰'; }
+  .v-gain.platform strong { color: #4527A0; }
+  .v-gain.platform .vg-tag { background: var(--accent-purple); }
 
   .v-arrow {
     text-align: center; font-size: 16px; font-weight: 800;
@@ -1118,30 +1157,39 @@
   <div class="section-desc">Demo 已上线 → <a href="https://eagergogogo.github.io/offline-scene-demo/demo-8-merchant.html" target="_blank" style="color:var(--zx-red);font-weight:600;">eagergogogo.github.io/offline-scene-demo/demo-8-merchant.html</a></div>
 
   <!-- 双动线用户流程 -->
-  <h3 style="font-size:17px;font-weight:700;margin-bottom:16px;color:var(--text-primary);">🔄 两条用户动线：动机不同，路径不同</h3>
+  <h3 style="font-size:17px;font-weight:700;margin-bottom:16px;color:var(--text-primary);">🔄 两条用户动线：每一步，门店都有得赚</h3>
 
-  <!-- 战略优先级提示 -->
+  <!-- 铺设策略：怎么让门店愿意摆、愿意长期摆 -->
   <div class="priority-banner">
     <div class="pb-pill first">
-      <span class="pb-label">🥇 第一阶段 · 优先打透</span>
-      <span class="pb-desc">做<strong>动线一</strong>，先把线下商户覆盖铺起来</span>
+      <span class="pb-label">🥇 第一阶段 · 拿下台面</span>
+      <span class="pb-desc"><strong>平台垫券成本 + 双动线同步跑</strong>，让门店零成本看到真新客</span>
     </div>
     <div class="pb-arrow">→</div>
     <div class="pb-pill second">
-      <span class="pb-label">🥈 第二阶段 · 后续接力</span>
-      <span class="pb-desc">再做<strong>动线二</strong>，把线下用户盘子激活</span>
+      <span class="pb-label">🥈 第二阶段 · 商户自愿续摆</span>
+      <span class="pb-desc">数据跑出来后<strong>商户接手券成本</strong>，台卡从「试试看」变成<strong>标配</strong></span>
     </div>
+  </div>
+
+  <!-- 铺设关键前提：先讲清商户为什么肯把台面让出来 -->
+  <div class="card" style="margin-bottom:14px;background:linear-gradient(135deg,#F3F0FF,#EDE7F6);border-left:4px solid var(--accent-purple);padding:14px 16px;">
+    <p style="font-size:12.5px;color:#4527A0;margin:0;line-height:1.75;">
+      💰 <strong>铺设第一原则：不让门店先掏钱。</strong>
+      试点期<strong>券成本 100% 由平台承担</strong>，门店只出台面位置；<strong>游戏侧曝光资源同步给到</strong>，
+      让门店在<strong>零成本、零风险</strong>前提下先看到「陌生玩家专程进店」这件事真实发生 —— 这是让台卡从角落走上收银台 C 位的唯一理由。
+    </p>
   </div>
 
   <div class="dual-flow">
     <!-- 动线一：商户权益驱动（含闭环回环） -->
     <div class="flow-column merchant">
-      <div class="phase-tag first"><span>🥇</span> 现阶段主推</div>
+      <div class="phase-tag first"><span>🔁</span> 存量客 → 变复购</div>
       <div class="flow-col-head">
         <span class="flow-col-icon">🍗</span>
         <div>
           <div class="flow-col-title">动线一：冲着商户权益来的</div>
-          <div class="flow-col-sub">用户就是来吃鸡排 / 领优惠的</div>
+          <div class="flow-col-sub">把「吃完就走的路人」变成「记得住、还会来」的熟客</div>
         </div>
       </div>
       <div class="v-flow-steps has-loop">
@@ -1164,6 +1212,7 @@
           <div class="v-step-body">
             <div class="v-step-title">📣 看到活动</div>
             <div class="v-step-desc"><strong>两条触发路径：</strong><br>🅰️ 游戏内看到活动 banner（push 推送）<br>🅱️ 到店看到 NFC 台卡 / 海报</div>
+            <span class="v-gain"><span class="vg-tag">门店得到</span><strong>免费的游戏侧曝光</strong>：门店名 + 位置进入 4,000 万用户的活动页，等价广告投放成本 <strong>0 元</strong></span>
           </div>
         </div>
         <div class="v-arrow m">↓</div>
@@ -1172,6 +1221,7 @@
           <div class="v-step-body">
             <div class="v-step-title">到店消费</div>
             <div class="v-step-desc">用户因鸡排/优惠到店<br>（顺路或专程）</div>
+            <span class="v-gain"><span class="vg-tag">门店得到</span>到店客流<strong>首次被记录</strong>，从此这个客人不再是「一次性路人」</span>
           </div>
         </div>
         <div class="v-arrow m">↓</div>
@@ -1180,6 +1230,8 @@
           <div class="v-step-body">
             <div class="v-step-title">碰卡领券</div>
             <div class="v-step-desc">NFC 碰一碰，领取商户优惠券<br>（鸡排券/新品试吃券）</div>
+            <span class="v-gain"><span class="vg-tag">门店得到</span>客人<strong>自动进入门店企微私域</strong>，新品/优惠日后可反复触达，<strong>不再被外卖平台抽佣</strong></span>
+            <span class="v-gain platform"><span class="vg-tag">平台承担</span>试点期<strong>券成本由我方补贴</strong>，门店 0 成本参与</span>
           </div>
         </div>
         <div class="v-arrow m">↓</div>
@@ -1188,6 +1240,7 @@
           <div class="v-step-body">
             <div class="v-step-title">核销使用</div>
             <div class="v-step-desc">当场核销，直接享受优惠<br>核心诉求满足 ✓</div>
+            <span class="v-gain"><span class="vg-tag">门店得到</span>核销即<strong>带动连带销售</strong>（券多为满减/试吃），客单价提升；核销数据<strong>实时回传后台</strong>，投放效果可算账</span>
           </div>
         </div>
         <div class="v-arrow m">↓</div>
@@ -1196,6 +1249,8 @@
           <div class="v-step-body">
             <div class="v-step-title">🎁 游戏权益惊喜附加</div>
             <div class="v-step-desc">同时获得游戏礼包，超出预期<br>引导次日再次到店碰卡</div>
+            <span class="v-gain platform"><span class="vg-tag">平台承担</span>游戏礼包<strong>全部由我方提供</strong>，门店不出一分钱，却收获客人的好感</span>
+            <span class="v-gain"><span class="vg-tag">门店得到</span><strong>复购动力</strong>：连续打卡奖励驱动客人次日再来，把单次消费变成<strong>7 天内多次到店</strong></span>
           </div>
         </div>
       </div>
@@ -1203,12 +1258,12 @@
 
     <!-- 动线二：游戏权益驱动 -->
     <div class="flow-column game">
-      <div class="phase-tag second"><span>🥈</span> 后续接力</div>
+      <div class="phase-tag second"><span>🚀</span> 增量新客 · 铺设王牌</div>
       <div class="flow-col-head">
         <span class="flow-col-icon">🎮</span>
         <div>
           <div class="flow-col-title">动线二：冲着游戏权益来的</div>
-          <div class="flow-col-sub">用户知道碰卡能领游戏礼包，特意到店</div>
+          <div class="flow-col-sub">原本不会进店的陌生玩家，为礼包<strong>专程走进来</strong></div>
         </div>
       </div>
       <div class="v-flow-steps">
@@ -1217,6 +1272,7 @@
           <div class="v-step-body">
             <div class="v-step-title">📣 看到活动</div>
             <div class="v-step-desc"><strong>游戏侧精准触达：</strong><br>游戏内 push / 社群转发<br>「正新门店NFC打卡领皮肤」</div>
+            <span class="v-gain platform"><span class="vg-tag">平台承担</span>推广资源<strong>全部由我方投入</strong>，门店无需出广告费</span>
           </div>
         </div>
         <div class="v-arrow g">↓</div>
@@ -1225,6 +1281,7 @@
           <div class="v-step-body">
             <div class="v-step-title">特意到店</div>
             <div class="v-step-desc">冲着游戏礼包<br>专程来到正新门店</div>
+            <span class="v-gain"><span class="vg-tag">门店得到</span><strong>纯增量新客</strong>：这批人本来今天不会来吃鸡排，是台卡把他们<strong>从线上拉进店里</strong></span>
           </div>
         </div>
         <div class="v-arrow g">↓</div>
@@ -1233,6 +1290,7 @@
           <div class="v-step-body">
             <div class="v-step-title">碰卡</div>
             <div class="v-step-desc">NFC 碰一碰<br>触发游戏权益领取</div>
+            <span class="v-gain"><span class="vg-tag">门店得到</span>新客<strong>直接沉淀进门店私域</strong>，一次拉新，长期可复用</span>
           </div>
         </div>
         <div class="v-arrow g">↓</div>
@@ -1241,6 +1299,7 @@
           <div class="v-step-body">
             <div class="v-step-title">🎁 拿到游戏权益</div>
             <div class="v-step-desc">王者/和平/三角洲等游戏礼包<br>核心目标达成 ✓</div>
+            <span class="v-gain platform"><span class="vg-tag">平台承担</span>礼包成本<strong>我方全额承担</strong>，门店只需让台卡在台面上</span>
           </div>
         </div>
         <div class="v-arrow g">↓</div>
@@ -1249,57 +1308,72 @@
           <div class="v-step-body">
             <div class="v-step-title">🍗 顺便得商户券</div>
             <div class="v-step-desc">同时获得鸡排券/新品试吃券<br>引导当场消费，双向转化</div>
+            <span class="v-gain"><span class="vg-tag">门店得到</span><strong>当场成交</strong>：人已经站在柜台前，券直接转化为订单 —— <strong>这是实打实的新增营收</strong></span>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 底部汇聚 -->
-  <div class="card" style="text-align:center;margin-top:14px;background:linear-gradient(135deg,#FFF5F5,#FFF8EC);border:1px dashed var(--zx-red-soft);">
-    <p style="font-size:13px;color:var(--text-secondary);margin:0;">
-      💡 <strong>两条动线最终汇聚：</strong>无论用户因何而来，<strong>游戏权益 + 商户券 双方都拿到</strong>，且均可加入企微社群持续触达
+  <!-- 底部汇聚：站在铺设视角 -->
+  <div class="card" style="margin-top:14px;background:linear-gradient(135deg,#F1F9F2,#E8F5E9);border-left:4px solid var(--accent-green);">
+    <p style="font-size:13px;color:#1B5E20;margin:0;line-height:1.75;">
+      🏪 <strong>为什么门店愿意把台面让出来：</strong>
+      整条链路里，<strong>券成本与礼包成本全部由平台承担</strong>，门店唯一的投入是<strong>一块台卡的位置</strong>；
+      换回来的是<strong>免费游戏曝光 + 存量客复购 + 陌生玩家增量到店 + 可沉淀的私域资产</strong>。
+      <br><strong>投入产出严重不对等，这才是台卡能从角落走上收银台 C 位、并且长期留在那里的根本原因。</strong>
     </p>
   </div>
 
-  <!-- 战略优先级说明 -->
+  <!-- 铺设落地路径：怎么让台卡真正摆开、并且不被撤掉 -->
   <div class="strategy-callout">
-    <div class="sc-title">📊 为什么这个顺序？战略逻辑</div>
+    <div class="sc-title">🏪 铺设落地路径：怎么让台卡摆上去，并且不被撤掉</div>
     <div class="sc-grid">
       <div class="sc-step">
         <div class="sc-step-num">1</div>
         <div class="sc-step-body">
-          <div class="sc-step-title">先动线一：铺覆盖</div>
+          <div class="sc-step-title">零成本破冰：先让门店敢试</div>
           <div class="sc-step-desc">
-            商户权益驱动是<strong>主干道</strong>——客人原本就要来吃，我们用 NFC 把到店流量接进来、留存到企微。<br>
-            <strong>先让商户接受、愿意摆、铺得开，把线下底盘建起来</strong>。
+            门店拒绝的第一原因是<strong>怕花钱、怕白忙</strong>。所以试点期<strong>券成本 + 礼包成本 100% 由平台承担</strong>，
+            门店<strong>只出台面位置</strong>，不掏一分钱、不承担任何风险。<br>
+            <strong>把决策门槛降到零，门店才愿意给出第一次机会。</strong>
           </div>
         </div>
       </div>
-      <div class="sc-arrow">↓</div>
       <div class="sc-step">
         <div class="sc-step-num">2</div>
         <div class="sc-step-body">
-          <div class="sc-step-title">后动线二：激活盘子</div>
+          <div class="sc-step-title">双动线同步跑：让门店亲眼看到增量</div>
           <div class="sc-step-desc">
-            动线二是<strong>增量流量</strong>——游戏玩家反向看到活动特意外出到店。<br>
-            <strong>等覆盖达到一定规模再用</strong>，避免单个门店资源被过度摊薄，靠「门店都在」的规模效应吸引游戏玩家走过来。
+            只讲「私域沉淀」打动不了店长，<strong>「陌生玩家专程进店」才有说服力</strong>。
+            所以动线二<strong>在试点期就同步开跑</strong>，不等覆盖规模。<br>
+            门店第一周就能看到<strong>后台里那些从游戏来的新客数字</strong> —— 这是台卡从角落挪到收银台 C 位的唯一理由。
           </div>
         </div>
       </div>
-      <div class="sc-arrow">↓</div>
       <div class="sc-step">
         <div class="sc-step-num">3</div>
         <div class="sc-step-body">
-          <div class="sc-step-title">最终：双动线合一</div>
+          <div class="sc-step-title">激励打到店长：让执行的人有动力</div>
           <div class="sc-step-desc">
-            商户密度 × 用户活跃 度，<strong>形成「店-人-游戏」三方正向循环</strong>。
+            总部签约 ≠ 门店铺开。真正决定台卡摆哪、店员是否提醒客人碰的是<strong>店长</strong>。<br>
+            门店打卡排行榜奖励<strong>直接发到店长个人</strong>（现金 / 游戏周边 / 稀缺皮肤），
+            <strong>把执行者的个人利益和碰卡量绑在一起</strong>，台卡才会被主动维护而不是任其损坏。
+          </div>
+        </div>
+      </div>
+      <div class="sc-step">
+        <div class="sc-step-num">4</div>
+        <div class="sc-step-body">
+          <div class="sc-step-title">数据说话后再谈成本分担</div>
+          <div class="sc-step-desc">
+            试点跑出<strong>碰卡量、新客数、复购率、连带销售</strong>四项数据后，门店自己会算清这笔账。
+            此时再让商户<strong>接手部分券成本</strong>，阻力极小 —— 因为他已经验证过<strong>投入产出是划算的</strong>。<br>
+            <strong>台卡从「试试看」变成门店标配，长期铺设自然达成。</strong>
           </div>
         </div>
       </div>
     </div>
-  </div>
-    </p>
   </div>
 
   <!-- 核心功能 -->
